@@ -123,3 +123,13 @@ Submissions must include:
 ### Submit your proposal
 
 Proposals can be submitted [via PreTalx](https://pretalx.com/fwd-cloudsec-2023/cfp).
+
+---
+
+## Taking inventory, AWS Config, botocove, steampipe
+
+My idea covers this niche.
+
+[15 ideas for cloud security research](https://www.linkedin.com/pulse/15-ideas-cloud-security-research-plerion-7oehc/?utm_source=share&utm_medium=member_ios&utm_campaign=share_via)
+
+1️⃣1️⃣ Zero $ CSPM - Cobble together open source tools and teach folks how they can get a bunch of the technical capability of major cloud security platforms. Discuss the trade offs and help people get their cloud security journey started.
