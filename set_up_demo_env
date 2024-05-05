@@ -1,0 +1,13 @@
+if [[ ! -d venv ]]; then
+    python3 -m venv ./venv
+fi
+source ./venv/bin/activate
+pip install botocove ipython prettyprinter
+
+ipy() {
+    ipython --no-confirm-exit --no-banner --ipython-dir="$PWD"
+}
+
+export AWS_PROFILE="sandbox.Organization-Management-Account.480783779961.AdministratorAccess"
+
+login

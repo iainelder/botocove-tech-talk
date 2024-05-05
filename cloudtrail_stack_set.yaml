@@ -1,0 +1,61 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Trails for Botocove demo
+
+Parameters:
+  OrgId: { Type: String, Default: "r-auh0" }
+  TargetRegions: { Type: CommaDelimitedList, Default: "eu-west-1,eu-central-1" }
+  IsLogging: { Type: String, Default: True }
+
+Resources:
+  StackSet:
+    Type: AWS::CloudFormation::StackSet
+    Properties:
+      AutoDeployment: { Enabled: True, RetainStacksOnAccountRemoval: False }
+      ManagedExecution: { Active: True }
+      OperationPreferences:
+        FailureTolerancePercentage: 100
+        MaxConcurrentPercentage: 100
+        RegionConcurrencyType: PARALLEL
+      Parameters:
+        - { ParameterKey: S3BucketName, ParameterValue: !Ref TrailBucket }
+        - { ParameterKey: IsLogging, ParameterValue: !Ref IsLogging }
+        - { ParameterKey: TrailName, ParameterValue: !Ref AWS::StackName }
+      PermissionModel: SERVICE_MANAGED
+      StackInstancesGroup:
+        - DeploymentTargets: { OrganizationalUnitIds: [!Ref OrgId] }
+          Regions: !Ref TargetRegions
+      StackSetName: !Ref AWS::StackName
+      TemplateURL: !Rain::S3Http cloudtrail.yaml
+
+  TrailBucket:
+    DeletionPolicy: Retain
+    Type: AWS::S3::Bucket
+
+  TrailBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref TrailBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AWSCloudTrailAclCheck
+            Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: s3:GetBucketAcl
+            Resource: !GetAtt TrailBucket.Arn
+            Condition:
+              ArnLike:
+                aws:SourceArn: arn:aws:cloudtrail:*:*:trail/*
+          - Sid: AWSCloudTrailWrite
+            Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: s3:PutObject
+            Resource: !Sub "${TrailBucket.Arn}/AWSLogs/*"
+            Condition:
+              StringEquals:
+                s3:x-amz-acl: bucket-owner-full-control
+              ArnLike:
+                aws:SourceArn: arn:aws:cloudtrail:*:*:trail/*

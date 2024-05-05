@@ -1,0 +1,16 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Trail for Botocove demo
+
+Parameters:
+  S3BucketName: { Type: String }
+  IsLogging: { Type: String }
+  TrailName: { Type: String }
+
+Resources:
+  AccountTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: !Ref IsLogging
+      S3BucketName: !Ref S3BucketName
+      TrailName: !Ref TrailName
