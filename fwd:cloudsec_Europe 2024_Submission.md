@@ -40,15 +40,15 @@ In February AWS enrolled me in its AWS New Voices program for public speakers. T
 
 I first presented this session at the open-source booth at AWS Summit in London on 2024-04-24. It was the world's smallest stage, and not well promoted by AWS, but it was well received by the few who knew about it. I would love the opportunity to share my talk with a bigger audience who may relate to situations like mine.
 
+In 20 minutes I have time to show just a single use and just the basic features of Botocove, so I welcome Q&A from the audience at the end if they want to know more about how it might solve a problem they have or other situations in which I have found it useful or if they want to suggest features to make it better.
+
 Botocove project GitHub repo:
 
 https://github.com/connelldave/botocove
 
 You can preview the slides I used for the first version of this talk in another GitHub repo:
 
-
-
-
+https://github.com/iainelder/botocove-tech-talk
 
 Speaker bio:
 
